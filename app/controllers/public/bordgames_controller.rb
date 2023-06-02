@@ -51,7 +51,14 @@ class Public::BordgamesController < ApplicationController
   end  
 
   def edit
-    @bordgame = Bordgame.find(params[:id])
+    if current_customer.nil?
+      redirect_to new_customer_session_path, alert: "ログインが必要です。"
+    else
+      @bordgame = current_customer.bordgames.find_by(id: params[:id])
+      if @bordgame.nil?
+        redirect_to root_path, alert: "アクセス権限がありません。"
+      end
+    end
   end
   
   def update

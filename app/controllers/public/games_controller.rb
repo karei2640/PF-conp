@@ -51,9 +51,17 @@ class Public::GamesController < ApplicationController
     end
   end
   
-  def edit
-    @game = Game.find(params[:id])
+ def edit
+  if current_customer.nil?
+    redirect_to new_customer_session_path, alert: "ログインが必要です。"
+  else
+    @game = current_customer.games.find_by(id: params[:id])
+    if @game.nil?
+      redirect_to root_path, alert: "アクセス権限がありません。"
+    end
   end
+ end
+
   
   def update
     @game = Game.find(params[:id])
