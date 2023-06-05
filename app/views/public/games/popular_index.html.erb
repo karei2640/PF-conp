@@ -74,7 +74,7 @@
               </li>
               <li class="nav-item">
                 <%= link_to '1日', request.params.merge(ranking_period: 'daily'), class: "nav-link #{params[:ranking_period].nil? || params[:ranking_period] == 'daily' ? 'active' : ''}" %> 
-                <%# params[:ranking_period].nil? || params[:ranking_period] == 'daily' ? 'active' : '': 現在のリクエストパラメータの 'ranking_period' 値が nil（未設定）または 'daily' と一致する場合は、'active' というクラスを追加 %>
+                <%#  現在のリクエストパラメータの 'ranking_period' 値が nil（未設定）または 'daily' と一致する場合は、'active' というクラスを追加 %>
               </li>
             </ul>
           </div>

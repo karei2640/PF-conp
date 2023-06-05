@@ -36,9 +36,11 @@
         <td><i class="fas fa-star fa-lg" aria-hidden="true" style="color: #ffa200;"></i><%= game.favorites.count %></td>
         <td>
           <% if params[:ranking_period] == 'all' %>
+          <%# params[:ranking_period]はランキングの期間を指定するためのパラメータ %>
             <%= game.view_counts.count %>
           <% elsif params[:ranking_period] == 'monthly' %>
             <%= game.view_counts.where(created_at: Time.current.all_month).count %>
+            <%# created_at: Time.zone は、データベースの created_at 列を、アプリケーションの現在のタイムゾーンに基づいてフィルタリングするための条件 %>
           <% elsif params[:ranking_period] == 'weekly' %>
             <%= game.view_counts.where(created_at: Time.current.all_week).count %>
           <% else params[:ranking_period] == 'daily'%>
