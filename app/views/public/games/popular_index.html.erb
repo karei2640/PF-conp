@@ -63,7 +63,8 @@
           <% end %>
           <ul class="nav nav-pills">
             <li class="nav-item">
-              <%= link_to '全期間', request.params.merge(ranking_period: 'all'), class: "nav-link #{params[:ranking_period] == 'all' ? 'active' : ''}" %>
+              <%= link_to '全期間', request.params.merge(ranking_period: 'all'), class: "nav-link #{params[:ranking_period] == 'all' ? 'active' : ''}" %> 
+              <%# class: "nav-link #{...}": リンクのクラス属性を指定しています。これにより、リンクのスタイルを制御 %>
             </li>
               <li class="nav-item">
                 <%= link_to '1か月', request.params.merge(ranking_period: 'monthly'), class: "nav-link #{params[:ranking_period] == 'monthly' ? 'active' : ''}" %>
@@ -72,7 +73,8 @@
                 <%= link_to '1週間', request.params.merge(ranking_period: 'weekly'), class: "nav-link #{params[:ranking_period] == 'weekly' ? 'active' : ''}" %>
               </li>
               <li class="nav-item">
-                <%= link_to '1日', request.params.merge(ranking_period: 'daily'), class: "nav-link #{params[:ranking_period].nil? || params[:ranking_period] == 'daily' ? 'active' : ''}" %>
+                <%= link_to '1日', request.params.merge(ranking_period: 'daily'), class: "nav-link #{params[:ranking_period].nil? || params[:ranking_period] == 'daily' ? 'active' : ''}" %> 
+                <%# params[:ranking_period].nil? || params[:ranking_period] == 'daily' ? 'active' : '': 現在のリクエストパラメータの 'ranking_period' 値が nil（未設定）または 'daily' と一致する場合は、'active' というクラスを追加 %>
               </li>
             </ul>
           </div>

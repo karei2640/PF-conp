@@ -8,10 +8,14 @@ class Public::GamesController < ApplicationController
   
   def popular_index
     @games = Game.page(params[:page]).per(150)
-    @popular_games_all = Game.joins(:view_counts).group(:id).order('count(view_counts.id) desc').page(params[:popular_games_all_page]).per(150)
-    @popular_games_monthly = Game.joins(:view_counts).where(view_counts: { created_at: 1.month.ago..Time.current }).group(:id).order('count(view_counts.id) desc').page(params[:popular_games_monthly_page]).per(150)
-    @popular_games_weekly = Game.joins(:view_counts).where(view_counts: { created_at: 1.week.ago..Time.current }).group(:id).order('count(view_counts.id) desc').page(params[:popular_games_weekly_page]).per(150)
+    @popular_games_all = Game.joins(:view_counts).group(:id).order('count(view_counts.id) desc').page(params[:popular_games_all_page]).per(150) 
+    # Game.joins(:view_counts): Game モデルと ViewCount モデルを関連付け
+    @popular_games_monthly = Game.joins(:view_counts).where(view_counts: { created_at: 1.month.ago..Time.current }).group(:id).order('count(view_counts.id) desc').page(params[:popular_games_monthly_page]).per(150) 
+    # group(:id): Game モデルの id 列で結果をグループ化  
+    @popular_games_weekly = Game.joins(:view_counts).where(view_counts: { created_at: 1.week.ago..Time.current }).group(:id).order('count(view_counts.id) desc').page(params[:popular_games_weekly_page]).per(150) 
+    # 同じゲームの複数の閲覧数が結合され、ゲームごとに集計できる
     @popular_games_daily = Game.joins(:view_counts).where(view_counts: { created_at: 1.day.ago..Time.current }).group(:id).order('count(view_counts.id) desc').page(params[:popular_games_daily_page]).per(150)
+    # order('count(view_counts.id) desc'): 閲覧数のカウントを降順（高い順）で結果を並べ替える
     @customer = current_customer
   end
   
